@@ -1,19 +1,27 @@
-const pool = require("../db")
+const { DataTypes } = require('sequelize');
+const db = require('../connection');
 
-const createUsuario = async (Usuario) => {
-    const {correo_electronico, contrasenia, nombre_usuario, rol_id} = Usuario;
-
-    try {
-        let query = await pool.query("INSERT INTO USUARIO (CORREO_ELECTRONICO, CONTRASENIA, NOMBRE_USUARIO, ROL_ID) VALUES ($1,$2,$3,$4)",
-        [correo_electronico, contrasenia, nombre_usuario, rol_id]);
-
-        return query;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-module.exports = {
-    createUsuario
-}
-
+const Usuario = db.define('usuario', {
+    usuario_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey:true
+    },
+    correo_electronico: {
+        type: DataTypes.STRING
+    },
+    contrasenia: {
+        type: DataTypes.STRING
+    },
+    nombre_usuario: {
+        type: DataTypes.STRING
+    },
+    rol_id: {
+        type: DataTypes.INTEGER
+    }},
+    {
+    timestamps: false,
+    freezeTableName: true
+});
+ 
+module.exports = Usuario;
