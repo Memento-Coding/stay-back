@@ -49,6 +49,16 @@ const validacionExisteUsuario = async (id) => {
     return existeUsuario;
 }
 
+const validacionContrasenia = async (contrasenia, correo_electronico) => {
+    const existeContrasenia = await Usuario.findOne({
+        where: {
+            correo_electronico: correo_electronico,
+            contrasenia: contrasenia
+        }
+    })
+    return existeContrasenia;
+}
+
 module.exports = {
     creationUsuario,
     updateUsuario,
@@ -56,5 +66,6 @@ module.exports = {
     validacionCorreo,
     validacionNombreUsuario,
     validacionExisteUsuario,
-    paginacion
+    paginacion,
+    validacionContrasenia
 }
