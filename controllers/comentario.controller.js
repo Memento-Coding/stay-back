@@ -11,7 +11,7 @@ const getAllComentarios = async (req, res) => {
 
 const createComentario = async (req, res) => {
   try {
-    const newComentario = req.body;
+    const { comentario_id, ...newComentario } = req.body; // aquí se elimina la propiedad comentario_id del objeto req.body
     const comentarioCreated = await comentarioService.createComentario(newComentario);
     res.status(201).json(comentarioCreated);
   } catch (error) {
@@ -29,6 +29,7 @@ const updateComentario = async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar el comentario' });
   }
 }
+
 
 const deleteComentario = async (req, res) => {
     try {
