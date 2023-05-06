@@ -1,8 +1,9 @@
 const Usuario = require('../database/models/Usuario');
 
-const getAllUsuarios = async () => {
-    const allUsuarios = await Usuario.findAll();
-    return allUsuarios;
+const paginacion = async (opciones)=> {
+    const { count, rows } = await Usuario.findAndCountAll(opciones);
+
+    return {count, rows};
 }
 
 const creationUsuario = async (newUsuario)=> {
@@ -48,12 +49,23 @@ const validacionExisteUsuario = async (id) => {
     return existeUsuario;
 }
 
+const validacionContrasenia = async (contrasenia, correo_electronico) => {
+    const existeContrasenia = await Usuario.findOne({
+        where: {
+            correo_electronico: correo_electronico,
+            contrasenia: contrasenia
+        }
+    })
+    return existeContrasenia;
+}
+
 module.exports = {
     creationUsuario,
-    getAllUsuarios,
     updateUsuario,
     deleteUsuario,
     validacionCorreo,
     validacionNombreUsuario,
-    validacionExisteUsuario
+    validacionExisteUsuario,
+    paginacion,
+    validacionContrasenia
 }
