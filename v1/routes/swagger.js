@@ -5,12 +5,12 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API Stay',
+      title: 'APIS STAY',
       version: '1.0.0',
     },
     servers: [
       {
-        url: 'http://localhost:8080/v1/'
+        url: 'https://stay-back-production.up.railway.app/v1/'
       }
     ],
     components: {
