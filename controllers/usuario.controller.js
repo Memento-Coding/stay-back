@@ -1,9 +1,20 @@
 const usuarioServices = require('../services/usuario.service');
 
 const getUsuarios = async (req,res) => {
-    const usuario = await usuarioServices.getAllUsuarios();
-    res.json(usuario);
-}
+    const {page = 0, size = 5} = req.query;
+
+    let opciones = {
+        limit: +size,
+        offset: (+page) * (+size)
+    }
+
+    const paginacion = await usuarioServices.paginacion(opciones)
+
+    res.json({
+        total: paginacion.count,
+        usuarios: paginacion.rows
+    })
+};
 
 const creationUsuario = async (req,res) => {
 

@@ -4,6 +4,7 @@ const db = require('../connection');
 const Rol = db.define('rol', {
     rol_id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey:true
     },
     nombre_rol:{

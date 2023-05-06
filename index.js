@@ -4,13 +4,15 @@ const cors = require('cors');
 const morgan = require('morgan');
 const db = require ('./database/connection')
 require('dotenv').config();
+
 const usuarios = require('./v1/routes/usuario.route');
-const Rol = require('./database/models/Rol');
+const roles = require('./v1/routes/rol.route') 
 
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 app.use('/v1/user', usuarios);
+app.use('/v1/rol', roles)
 
 async function main() {
     try {
