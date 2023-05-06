@@ -112,6 +112,18 @@ const options = {
               description: 'URL de la foto del sitio turístico'
             }
           }
+        },Rol: {
+          type: 'object',
+          properties: {
+            rol_id: {
+              type: 'integer',
+              description: 'ID del rol'
+            },
+            nombre_rol: {
+              type: 'string',
+              description: 'Nombre del rol'
+            }
+          }
         }
       }
     }
