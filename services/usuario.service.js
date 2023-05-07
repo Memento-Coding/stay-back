@@ -1,4 +1,5 @@
 const Usuario = require('../database/models/Usuario');
+const bcrypt = require('bcrypt');
 
 const paginacion = async (opciones)=> {
     const { count, rows } = await Usuario.findAndCountAll(opciones);
@@ -8,6 +9,8 @@ const paginacion = async (opciones)=> {
 
 const creationUsuario = async (newUsuario)=> {
     const usuarioCreated = new Usuario(newUsuario);
+    const salt = bcrypt.genSaltSync();
+    usuarioCreated.contrasenia = bcrypt.hashSync(newUsuario.contrasenia, salt);
     await usuarioCreated.save();
     return usuarioCreated;
 }
