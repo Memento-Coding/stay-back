@@ -23,5 +23,12 @@ const Usuario = db.define('usuario', {
     timestamps: false,
     freezeTableName: true
 });
+
+Usuario.prototype.toJSON = function(){
+    let values = Object.assign({}, this.get());
+ 
+    delete values.contrasenia;
+    return values;
+}
  
 module.exports = Usuario;

@@ -1,10 +1,15 @@
+const { tokenSign } = require('../helpers/generateToken');
 const usuarioService = require('../services/usuario.service');
+const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
     try {
         const { correo_electronico, contrasenia } = req.body;
         const validacionCorreo = await usuarioService.validacionCorreo(correo_electronico);
-        const validacionContrasenia = await usuarioService.validacionContrasenia(contrasenia, correo_electronico);
+        const validacionContrasenia = bcrypt.compareSync(contrasenia, validacionCorreo.contrasenia);
+
+        console.log(validacionContrasenia);
+        console.log(`Contra del body: ${contrasenia}, contra del correo: ${validacionCorreo.contrasenia}`)
         
         if (!validacionCorreo){
             return res.status(404).json({
@@ -17,9 +22,11 @@ const login = async (req, res) => {
             });
         }
 
+        const token = await tokenSign(validacionCorreo);
+
         res.status(200).json({
-            msg: 'Ha accedido satisfactoriamente.',
-            correo_electronico,
+            validacionCorreo,
+            token
         })
         
         
