@@ -13,7 +13,13 @@ const checkAuth = async (req,res,next) =>{
             });
         }        
         if(tokenData.correo_electronico){
-            next()
+            /*
+                Guardo la informacion del usuario por si necesito hacer otra validacion a un middleware, de esta manera
+                ya se quien es el usuario que esta con ese token.
+                Un ejemplo es el verify-rol.js
+            */
+            req.usuario = existeUsuario;
+            next();
         }else{
             res.status(401);
             res.send({error:"Token no valido"});

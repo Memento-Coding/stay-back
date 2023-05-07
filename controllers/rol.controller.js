@@ -39,7 +39,6 @@ const updateRol = async (req,res) => {
     try {
 
         const existeRol = await rolServices.validacionExisteRol(id);        
-        
         if (!existeRol){
             return res.status(404).json({
                 msg: 'No existe rol con el id ' + id

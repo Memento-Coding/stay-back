@@ -7,9 +7,6 @@ const login = async (req, res) => {
         const { correo_electronico, contrasenia } = req.body;
         const validacionCorreo = await usuarioService.validacionCorreo(correo_electronico);
         const validacionContrasenia = bcrypt.compareSync(contrasenia, validacionCorreo.contrasenia);
-
-        console.log(validacionContrasenia);
-        console.log(`Contra del body: ${contrasenia}, contra del correo: ${validacionCorreo.contrasenia}`)
         
         if (!validacionCorreo){
             return res.status(404).json({
