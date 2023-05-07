@@ -17,8 +17,9 @@ const login = async (req, res) => {
             });
         }
 
-        res.json({
-            msg: 'Ha accedido satisfactoriamente.'
+        res.status(200).json({
+            msg: 'Ha accedido satisfactoriamente.',
+            correo_electronico,
         })
         
         
