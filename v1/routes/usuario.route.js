@@ -21,8 +21,7 @@ const { esAdmin } = require('../../middlewares/verify-rol');
  *                 $ref: '#/components/schemas/Usuario'
  */
 router.get('', [
-    checkAuth,
-    esAdmin
+
 ], usuariosControllers.getUsuarios);
 /**
  * @swagger
