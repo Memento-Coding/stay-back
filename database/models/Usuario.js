@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../connection');
+const Rol = require('./Rol');
 
 const Usuario = db.define('usuario', {
     usuario_id: {
@@ -17,7 +18,11 @@ const Usuario = db.define('usuario', {
         type: DataTypes.STRING
     },
     rol_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        references: {
+            model: Rol,
+            key: "rol_id"
+        }
     }},
     {
     timestamps: false,
@@ -26,9 +31,10 @@ const Usuario = db.define('usuario', {
 
 Usuario.prototype.toJSON = function(){
     let values = Object.assign({}, this.get());
- 
+    
     delete values.contrasenia;
     return values;
 }
- 
+
+
 module.exports = Usuario;

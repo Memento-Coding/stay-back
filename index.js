@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const db = require ('./database/connection')
 require('dotenv').config();
 const usuarios = require('./v1/routes/usuario.route');
-const Rol = require('./database/models/Rol');
 const sitioTuristico = require('./v1/routes/sitioTuristico.route');
 const evento = require('./v1/routes/evento.route');
 const comentario = require('./v1/routes/comentario.route');
