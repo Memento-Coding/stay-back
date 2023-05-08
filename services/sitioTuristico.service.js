@@ -1,4 +1,4 @@
-const SitioTuristico = require('../database/models/sitioTuristico');
+const SitioTuristico = require('../database/models/SitioTuristico');
 
 
 const getAllSitiosTuristicos = async () => {
