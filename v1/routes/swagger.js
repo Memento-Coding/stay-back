@@ -14,6 +14,13 @@ const options = {
       }
     ],
     components: {
+      securitySchemes: {
+        jwt: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
       schemas: {
         Evento: {
           type: 'object',
@@ -125,11 +132,39 @@ const options = {
             }
           }
         }
-      }
+      },
+      security: [
+        {
+          jwt: []
+        }
+      ]
     }
   },
   apis: ['v1/routes/*.route.js',],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+
+// Middleware para verificar el token en Swagger
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: 'No se proporcionó un token' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+    if (error) {
+      return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    req.decoded = decoded;
+    next();
+  });
+};
+
+module.exports = {
+  swaggerUi,
+  swaggerSpec,
+  verifyToken
+};
 module.exports = swaggerSpec;
