@@ -39,4 +39,7 @@ const Comentario = db.define('comentario', {
   tableName: 'comentario'
 });
 
+Comentario.belongsTo(Usuario, {foreignKey: 'usuario_id'})
+Comentario.belongsTo(SitioTuristico, {foreignKey: 'sitio_turistico_id'})
+
 module.exports = Comentario;

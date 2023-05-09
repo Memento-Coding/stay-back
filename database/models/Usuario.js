@@ -21,13 +21,18 @@ const Usuario = db.define('usuario', {
         type: DataTypes.INTEGER,
         references: {
             model: Rol,
-            key: "rol_id"
+            key: 'rol_id'
         }
+    },
+    foto: {
+        type: DataTypes.STRING(256),
     }},
     {
     timestamps: false,
-    freezeTableName: true
+    freezeTableName: true,
+    tableName: 'usuario'
 });
+
 
 Usuario.prototype.toJSON = function(){
     let values = Object.assign({}, this.get());
@@ -36,5 +41,6 @@ Usuario.prototype.toJSON = function(){
     return values;
 }
 
+Usuario.belongsTo(Rol, {foreignKey: 'rol_id'});
 
 module.exports = Usuario;

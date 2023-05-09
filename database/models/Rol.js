@@ -12,7 +12,8 @@ const Rol = db.define('rol', {
     }},
     {
     timestamps: false,
-    freezeTableName: true
+    freezeTableName: true,
+    tableName: 'rol'
 });
- 
+
 module.exports = Rol;

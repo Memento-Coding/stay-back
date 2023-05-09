@@ -1,7 +1,9 @@
 const Comentario = require('../database/models/Comentario');
+const SitioTuristico = require('../database/models/SitioTuristico');
+const Usuario = require('../database/models/Usuario');
 
 const getAllComentarios = async () => {
-  const comentarios = await Comentario.findAll();
+  const comentarios = await Comentario.findAll({include: [{model: Usuario},{model: SitioTuristico}]});
   return comentarios;
 }
 
