@@ -29,9 +29,15 @@ const deleteSitioTuristico = async (id) => {
   return sitioTuristicoDeleted;
 }
 
+const validacionExisteSitioTuristico = async (id) => {
+  const existeSitioTuristico = await SitioTuristico.findByPk(id)
+  return existeSitioTuristico;
+}
+
 module.exports = {
   getAllSitiosTuristicos,
   createSitioTuristico,
   updateSitioTuristico,
-  deleteSitioTuristico
+  deleteSitioTuristico,
+  validacionExisteSitioTuristico
 };

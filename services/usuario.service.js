@@ -1,8 +1,13 @@
+const Rol = require('../database/models/Rol');
 const Usuario = require('../database/models/Usuario');
 const bcrypt = require('bcrypt');
 
 const paginacion = async (opciones)=> {
-    const { count, rows } = await Usuario.findAndCountAll(opciones);
+    const { count, rows } = await Usuario.findAndCountAll({ opciones,
+        include: [{
+            model: Rol,
+        }],
+    });
 
     return {count, rows};
 }
