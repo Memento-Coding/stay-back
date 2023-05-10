@@ -43,10 +43,7 @@ router.get('', [
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-router.post('', [
-    checkAuth,
-    esAdmin
-], usuariosControllers.creationUsuario);
+router.post('', usuariosControllers.creationUsuario);
 
 /**
  * @swagger
