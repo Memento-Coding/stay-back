@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../connection');
 const Usuario = require('./Usuario');
-const SitioTuristico = require('./sitioTuristico');
+const SitioTuristico = require('./SitioTuristico');
 
 const Comentario = db.define('comentario', {
   comentario_id: {
@@ -38,5 +38,8 @@ const Comentario = db.define('comentario', {
   freezeTableName: true,
   tableName: 'comentario'
 });
+
+Comentario.belongsTo(Usuario, {foreignKey: 'usuario_id'})
+Comentario.belongsTo(SitioTuristico, {foreignKey: 'sitio_turistico_id'})
 
 module.exports = Comentario;

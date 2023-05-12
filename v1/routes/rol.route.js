@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const rolController = require('../../controllers/rol.controller');
+const rolControllers = require('../../controllers/rol.controller');
+const checkAuth = require('../../middlewares/auth');
+const { esAdmin } = require('../../middlewares/verify-rol');
 
 /**
  * @swagger
@@ -24,7 +26,10 @@ const rolController = require('../../controllers/rol.controller');
  *               items:
  *                 $ref: '#/components/schemas/Rol'
  */
-router.get('', rolController.getAllRoles);
+router.get('', [
+    checkAuth,
+    esAdmin
+], rolControllers.getAllRoles);
 
 /**
  * @swagger
@@ -46,7 +51,10 @@ router.get('', rolController.getAllRoles);
  *             schema:
  *               $ref: '#/components/schemas/Rol'
  */
-router.post('', rolController.creationRol);
+router.post('', [
+    checkAuth,
+    esAdmin
+], rolControllers.creationRol);
 
 /**
  * @swagger
@@ -75,7 +83,10 @@ router.post('', rolController.creationRol);
  *             schema:
  *               $ref: '#/components/schemas/Rol'
  */
-router.put('/:id', rolController.updateRol);
+router.put('/:id', [
+    checkAuth,
+    esAdmin
+], rolControllers.updateRol);
 
 /**
  * @swagger
@@ -98,6 +109,9 @@ router.put('/:id', rolController.updateRol);
  *             schema:
  *               $ref: '#/components/schemas/Rol'
  */
-router.delete('/:id', rolController.deleteRol);
+router.delete('/:id', [
+    checkAuth,
+    esAdmin
+], rolControllers.deleteRol);
 
 module.exports = router;

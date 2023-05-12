@@ -21,7 +21,6 @@ const creationUsuario = async (req,res) => {
     const {body} = req;
 
     try {
-
         const validarEmail = await usuarioServices.validacionCorreo(body.correo_electronico);
         const validacionNombreUsuario = await usuarioServices.validacionNombreUsuario(body.nombre_usuario);
         if (validarEmail) {

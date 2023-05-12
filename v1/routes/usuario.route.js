@@ -1,6 +1,8 @@
 const {Router} = require('express');
 const router = Router();
 const usuariosControllers = require('../../controllers/usuario.controller');
+const checkAuth = require('../../middlewares/auth');
+const { esAdmin } = require('../../middlewares/verify-rol');
 
 /**
  * @swagger
@@ -18,7 +20,10 @@ const usuariosControllers = require('../../controllers/usuario.controller');
  *               items:
  *                 $ref: '#/components/schemas/Usuario'
  */
-router.get('', usuariosControllers.getUsuarios);
+router.get('', [
+    checkAuth,
+    esAdmin
+], usuariosControllers.getUsuarios);
 /**
  * @swagger
  * /user:
@@ -38,7 +43,7 @@ router.get('', usuariosControllers.getUsuarios);
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-router.post('/', usuariosControllers.creationUsuario);
+router.post('', usuariosControllers.creationUsuario);
 
 /**
  * @swagger
@@ -68,7 +73,10 @@ router.post('/', usuariosControllers.creationUsuario);
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-router.put('/:id', usuariosControllers.updateUsuario);
+router.put('/:id', [
+    checkAuth,
+    esAdmin
+], usuariosControllers.updateUsuario);
 
 /**
  * @swagger
@@ -107,7 +115,10 @@ router.put('/:id', usuariosControllers.updateUsuario);
  *                   type: integer
  *                   example: 1
  */
-router.delete('/:id', usuariosControllers.deleteUsuario)
+router.delete('/:id', [
+    checkAuth,
+    esAdmin
+], usuariosControllers.deleteUsuario)
 
 
 module.exports = router;
