@@ -14,9 +14,7 @@ const cargarArchivo = require('./v1/routes/imagen.route')
 const comentario = require('./v1/routes/comentario.route');
 const sitioTuristico = require('./v1/routes/sitioTuristico.route');
 const evento = require('./v1/routes/evento.route');
-const comentario = require('./v1/routes/comentario.route');
 const calificacion = require('./v1/routes/calificacion.route');
-const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./v1/routes/swagger.js');
 
 app.use(express.json());
