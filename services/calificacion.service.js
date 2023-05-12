@@ -25,10 +25,24 @@ const getAllCalificaciones = async () => {
       throw new Error('El usuario especificado no existe');
     }
   
+    // Validate that a Calificacion does not already exist for this usuario and sitio_turistico
+    const existingCalificacion = await Calificacion.findOne({
+      where: {
+        usuario_id: calificacion.usuario_id,
+        sitio_turistico_id: calificacion.sitio_turistico_id
+      }
+    });
+    if (existingCalificacion) {
+      throw new Error('Ya existe una calificación para este usuario y sitio turístico');
+    }
+  
     // Create the new Calificacion
     const newCalificacion = await Calificacion.create(calificacion);
     return newCalificacion;
-  }
+  };
+  
+  
+  
   const updateCalificacion = async (id, calificacion) => {
     // Validate that the required fields are present
     if (!calificacion.cantidad_estrellas || !calificacion.sitio_turistico_id || !calificacion.usuario_id) {
