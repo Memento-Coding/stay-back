@@ -1,5 +1,5 @@
 const Calificacion = require('../database/models/Calificacion');
-const SitioTuristico = require('../database/models/sitioTuristico');
+const SitioTuristico = require('../database/models/SitioTuristico');
 const Usuario = require('../database/models/Usuario');
 
 const getAllCalificaciones = async () => {
