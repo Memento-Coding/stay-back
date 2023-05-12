@@ -14,6 +14,7 @@ const cargarArchivo = require('./v1/routes/imagen.route')
 const comentario = require('./v1/routes/comentario.route');
 const sitioTuristico = require('./v1/routes/sitioTuristico.route');
 const evento = require('./v1/routes/evento.route');
+const calificacion = require('./v1/routes/calificacion.route');
 const swaggerDocument = require('./v1/routes/swagger.js');
 
 app.use(express.json());
@@ -31,6 +32,10 @@ app.use('/v1/user', usuarios);
 app.use('/v1/sitio-turistico', sitioTuristico);
 app.use('/v1/evento', evento);
 app.use('/v1/comentario', comentario);
+app.use('/v1/calificacion', calificacion);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+ 
 app.use('/v1/cargarArchivo', cargarArchivo);
 app.use('/v1/rol', roles)
 app.use('/v1/login', auth)

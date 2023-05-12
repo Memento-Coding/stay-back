@@ -11,9 +11,17 @@ const options = {
     servers: [
       {
         url: 'https://stay-back-production.up.railway.app/v1/'
+       // url: 'http://localhost:8080/v1/'
       }
     ],
     components: {
+      securitySchemes: {
+        jwt: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
       schemas: {
         Evento: {
           type: 'object',
@@ -37,6 +45,34 @@ const options = {
             }
           }
         },
+        Calificacion: {
+          type: 'object',
+          properties: {
+            calificacion_id: {
+              type: 'integer',
+              description: 'ID de la calificación'
+            },
+            cantidad_estrellas: {
+              type: 'number',
+              format: 'double',
+              description: 'Cantidad de estrellas otorgadas a la calificación'
+            },
+            fecha_publicacion: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Fecha de publicación de la calificación'
+            },
+            usuario_id: {
+              type: 'integer',
+              description: 'ID del usuario que hizo la calificación'
+            },
+            sitio_turistico_id: {
+              type: 'integer',
+              description: 'ID del sitio turístico al que se hizo la calificación'
+            }
+          }
+        }
+        ,
         Comentario: {
           type: 'object',
           properties: {
@@ -125,11 +161,39 @@ const options = {
             }
           }
         }
-      }
+      },
+      security: [
+        {
+          jwt: []
+        }
+      ]
     }
   },
   apis: ['v1/routes/*.route.js',],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+
+// Middleware para verificar el token en Swagger
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: 'No se proporcionó un token' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+    if (error) {
+      return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    req.decoded = decoded;
+    next();
+  });
+};
+
+module.exports = {
+  swaggerUi,
+  swaggerSpec,
+  verifyToken
+};
 module.exports = swaggerSpec;
