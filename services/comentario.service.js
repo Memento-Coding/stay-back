@@ -1,5 +1,5 @@
 const Comentario = require('../database/models/Comentario');
-const SitioTuristico = require('../database/models/sitioTuristico');
+const SitioTuristico = require('../database/models/SitioTuristico');
 const Usuario = require('../database/models/Usuario');
 
 const getAllComentarios = async () => {
