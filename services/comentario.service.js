@@ -1,5 +1,5 @@
 const Comentario = require('../database/models/Comentario');
-const SitioTuristico = require('../database/models/SitioTuristico');
+const SitioTuristico = require('../database/models/sitioTuristico');
 const Usuario = require('../database/models/Usuario');
 
 const getAllComentarios = async () => {
@@ -8,13 +8,6 @@ const getAllComentarios = async () => {
 }
 
 const createComentario = async (newComentario) => {
-  const { comentario } = newComentario;
-  const existeComentario = await Comentario.findOne({
-    where: { comentario }
-  });
-  if (existeComentario) {
-    throw new Error('El comentario ya existe en la base de datos');
-  }
   const comentarioCreated = await Comentario.create(newComentario);
   return comentarioCreated;
 }
